@@ -42,28 +42,41 @@ $listings = [
   ],
 ];
 
+// We want to format salaries to look nice, with a dollar sign and two decimal places.
+// We can use an anonymous function to do this.
 $formatSalary = fn ($salary) => '$' . number_format($salary, 2);
 
-
+// This function highlights certain words in a list of tags.
+// It's like using a yellow highlighter to make important words stand out.
 function highlightTags($tags, $searchTerm)
 {
+  // First, we join all the tags together into a single string.
   $tagsArray = implode(', ', $tags);
+  
+  // Then, we replace the search term with a highlighted version of itself.
+  // We use HTML to make the highlighted text yellow.
   return str_replace($searchTerm, "<span class='bg-yellow-200'>$searchTerm</span>", $tagsArray);
 }
 
+// This function calculates the average salary from a list of job listings.
 function calculateAverageSalary($listings, $formatSalary)
 {
+  // We start by initializing a variable to keep track of the total salary.
   $totalSalary = 0;
+  
+  // We also need to know how many job listings there are.
   $count = count($listings);
 
-  // Calculate the total salary
+  // Now, we loop through each job listing and add its salary to the total.
   foreach ($listings as $job) {
     $totalSalary += $job['salary'];
   }
 
-  // Calculate the average salary
+  // Next, we calculate the average salary by dividing the total salary by the number of job listings.
+  // We need to make sure we don't divide by zero, so we check if the count is greater than zero first.
   $averageSalary = ($count > 0) ? $totalSalary / $count : 0;
 
+  // Finally, we use the formatSalary function to make the average salary look nice.
   return $formatSalary($averageSalary);
 }
 ?>
