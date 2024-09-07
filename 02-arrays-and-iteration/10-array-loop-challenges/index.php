@@ -81,6 +81,4 @@ foreach($students as $student){
 
   $average = array_sum($grades) / count($grades);
   echo "{$name}: Average Grade = {$average} <br>";
-
-
-
+}
