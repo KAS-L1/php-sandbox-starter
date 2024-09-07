@@ -50,15 +50,18 @@ class Admin extends User {
 
 // Now, let's create a new Admin!
 $admin1 = new Admin('Tom Smith', 'Tom@gmail.com', 5);
+$moderator1 = new Moderator('John', 'john@gmail.com,', '3');
 
 // We can print out the Admin's name, email, and level.
-echo $admin1->name;
-echo $admin1->email;
-echo $admin1->level;
+echo $moderator1->name;
+echo $moderator1->email;
+// echo $admin1->level;
+echo $moderator1->modLevel;
 
 // We can also make the Admin log in and get their status.
-$admin1->login();  
-$admin1->getStatus();
+$moderator1->login();  
+// $moderator1->getStatus();
+$moderator1->getModLevel();
 
 // The Moderator class should be outside the Admin class, not inside it.
 class Moderator extends User {
@@ -76,4 +79,6 @@ class Moderator extends User {
   public function getModLevel() {
     return $this->modLevel;
   }
+  
 }
+
