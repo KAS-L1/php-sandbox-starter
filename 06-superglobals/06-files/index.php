@@ -7,6 +7,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
   $title = htmlspecialchars($_POST['title'] ?? '');
   $description = htmlspecialchars($_POST['description'] ?? '');
 
+
+  $file = $_FILES['logo'];
+
+  if($file['error'] === UPLOAD_ERR_OK) {
+    // specify where to ipload
+    $uploadDir = 'uploads/';
+
+    if(!is_dir($uploadDir)) {
+      mkdir($uploadDir, 0755, true);
+    }
+
+    // creATE DILE NAME
+    $filename= uniqid() . '-' . $file['name'];
+
+    // Check File Type
+    $allowedExtensions = ['jpg', 'jpeg', 'png'];
+    $fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
+
+    // make sure extended  is in array
+    if(in_array($fileExtension, $allowedExtensions)){
+      // upload file 
+    if(move_uploaded_file($file['tmp_name'], $uploadDir . $filename)) {
+      ;
+    } else {
+      echo 'File Upload Error: ' . $file['error'];
+    }
+    }else {
+      echo 'invalid file type';
+    }
+
+  }
   $submitted = true;
 }
 ?>
