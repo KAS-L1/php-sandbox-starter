@@ -1,22 +1,25 @@
 <?php
 
-// Database configuration
-$host = 'localhost';
-$port = 3306;
-$dbName = 'blog';
-$username = 'root';
-$password = '';
+// We need to tell the computer where our database is located
+$host = 'localhost'; // This is like the address of our database
+$port = 3306; // This is like a special door number to get into the database
+$dbName = 'blog'; // This is the name of our database, like a label on a folder
+$username = 'root'; // This is like a special username to get into the database
+$password = ''; // This is like a secret password to get into the database (but it's empty here!)
 
-// Connection string (DSN)
+// We need to create a special string to connect to the database
 $dsn = "mysql:host={$host};port={$port};dbname={$dbName};charset=utf8";
 
 try {
-  // Create a PDO instance
+  // We try to create a connection to the database using the special string
   $pdo = new PDO($dsn, $username, $password);
 
-  // Set PDO to throw exceptions on error
+  // We tell the computer to be careful and throw an error if something goes wrong
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+  // We tell the computer to fetch data from the database in a special way (like a dictionary)
+  $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-  // If there is an error with the connection, catch it here
+  // If something goes wrong, we catch the error and show a message
   echo "Connection failed: " . $e->getMessage();
 }
